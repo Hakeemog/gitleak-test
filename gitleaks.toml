@@ -1,0 +1,74 @@
+title = "gitleaks configuration"
+
+[[rules]]
+description = "Generic API Key"
+regex = '''(?i)(api_key|apikey|secret|token|auth_token|access_token|auth)[\s]*=[\s]*['"]?([A-Za-z0-9_\-]{20,})['"]?'''
+tags = ["key", "API"]
+
+[[rules]]
+description = "Google Cloud Service Account Key"
+regex = '''(?i)("type":\s*"service_account",|"project_id":\s*".+",|"private_key_id":\s*".+",|"private_key":\s*".+",|"client_email":\s*".+",|"client_id":\s*".+",|"auth_uri":\s*".+",|"token_uri":\s*".+",|"auth_provider_x509_cert_url":\s*".+",|"client_x509_cert_url":\s*".+")'''
+tags = ["key", "GCP"]
+
+[[rules]]
+description = "Slack Token"
+regex = '''xox[baprs]-([0-9a-zA-Z]{10,48})'''
+tags = ["key", "Slack"]
+
+[[rules]]
+description = "GitHub Token"
+regex = '''(?i)ghp_[A-Za-z0-9_]{36}'''
+tags = ["key", "GitHub"]
+
+[[rules]]
+description = "Stripe API Key"
+regex = '''(?i)(sk_live|rk_live|pk_live)_[0-9a-zA-Z]{24,}'''
+tags = ["key", "Stripe"]
+
+[[rules]]
+description = "Twilio API Key"
+regex = '''(?i)twilio_(account|auth)_token[\s]*=[\s]*['"]?([A-Za-z0-9]{32})['"]?'''
+tags = ["key", "Twilio"]
+
+[[rules]]
+description = "Password"
+regex = '''(?i)password[\s]*=[\s]*['"]?([A-Za-z0-9@#$%^&+=]{8,})['"]?'''
+tags = ["password"]
+
+[[rules]]
+description = "SSH Private Key"
+regex = '''-----BEGIN[ ]RSA[ ]PRIVATE[ ]KEY-----'''
+tags = ["key", "SSH"]
+
+[[rules]]
+description = "Private Key"
+regex = '''-----BEGIN[ ]PRIVATE[ ]KEY-----'''
+tags = ["key", "Private Key"]
+
+[[rules]]
+description = "Docker Config Auth"
+regex = '''"auths"'''
+tags = ["key", "Docker"]
+
+[[rules]]
+description = "Generic Secret"
+regex = '''(?i)(secret|private|confidential|password|passwd)[\s]*=[\s]*['"]?([A-Za-z0-9+/=]{20,})['"]?'''
+tags = ["key", "Generic"]
+
+[[rules]]
+description = "Database Credentials"
+regex = '''(?i)(db_(name|host|username|port|password))[\s]*=[\s]*['"]?([A-Za-z0-9@#$%^&+=/]{8,})['"]?'''
+tags = ["db", "database", "credentials"]
+
+# Define any other custom rules specific to your repository
+
+[allowlist]
+description = "Allow listed items that should not be flagged"
+
+
+[whitelist]
+description = "Whitelisted paths that should not be scanned"
+filepaths = [
+    '''^docs/'''
+]
+
